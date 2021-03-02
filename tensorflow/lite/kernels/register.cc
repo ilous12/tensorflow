@@ -29,6 +29,10 @@ TfLiteRegistration* Register_AUDIO_SPECTROGRAM();
 TfLiteRegistration* Register_MFCC();
 TfLiteRegistration* Register_DETECTION_POSTPROCESS();
 
+TfLiteRegistration* RegisterConvolution2DTransposeBias();
+TfLiteRegistration* RegisterMaxPoolingWithArgmax2D();
+TfLiteRegistration* RegisterMaxUnpooling2D();
+
 }  // namespace custom
 
 namespace builtin {
@@ -303,6 +307,12 @@ BuiltinOpResolver::BuiltinOpResolver() {
             tflite::ops::custom::Register_AUDIO_SPECTROGRAM());
   AddCustom("TFLite_Detection_PostProcess",
             tflite::ops::custom::Register_DETECTION_POSTPROCESS());
+  AddCustom("MaxPoolingWithArgmax2D",
+            tflite::ops::custom::RegisterMaxPoolingWithArgmax2D());
+  AddCustom("MaxUnpooling2D", tflite::ops::custom::RegisterMaxUnpooling2D());
+  AddCustom("Convolution2DTransposeBias",
+	    tflite::ops::custom::RegisterConvolution2DTransposeBias());
+
 }
 
 OpResolver::TfLiteDelegatePtrVector BuiltinOpResolver::GetDelegates(
